@@ -1,0 +1,63 @@
+
+
+# Steps for setting up single Ks8 cluster locally using Docker-Desktop. 
+
+# Steps to help setup k8 + dashboard :-
+https://www.replex.io/blog/how-to-install-access-and-add-heapster-metrics-to-the-kubernetes-dashboard
+https://andrewlock.net/running-kubernetes-and-the-dashboard-with-docker-desktop/
+
+# How to deploy on k8 cluster :-
+https://medium.com/@27aadesh/jenkins-on-demand-slaves-on-kubernetes-docker-desktop-windows-10-659fdec3684
+https://piotrminkowski.com/2020/11/10/continuous-integration-with-jenkins-on-kubernetes/
+
+
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+
+
+
+
+# Steps to Start Dashboard ::
+
+After enabling K8s on Docker Desktop , kubectl will automatically be downloaded in the backend. 
+Once K8s is up and running , run the below commands to create dashboard
+
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended/kubernetes-dashboard.yaml
+
+kubectl proxy  # Starts the newly created dashboard 
+
+Now we can access the Kubernetes dashboard UI by browsing to the following url: 
+http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dash
+
+
+# To configure user and generate token to access dashboard use the following commands :
+kubectl create serviceaccount dashboard-admin-sa
+kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
+kubectl get secrets
+kubectl describe secret dashboard-admin-sa-token-'value from upper command'
+
+# After running the above commands , token will be generated in the terminal . 
+# This is how the token looks like , we wil copy and paste in authnicate ny token section and we are good to go . 
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImVSRlEtNnhDaVM3UW9NZy1oTHcyUmhGS3ptSklFU1Z6a0w4OVRRVTg1dEEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRhc2hib2FyZC1hZG1pbi1zYS10b2tlbi1nY2s0ciIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJkYXNoYm9hcmQtYWRtaW4tc2EiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI4YjhkNjY5My05MDE3LTRkODMtYjRjNC04Yzc3MmQxYzgxYzEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpkYXNoYm9hcmQtYWRtaW4tc2EifQ.BGmZBEe4BT8m6FqrdE_bOoJgZL0tVeBtAX31ja-W44TtaoESke4WW2AUlVjf83IXPvWeU6hL5Xe3zGgE5DGa5mwyOZkpm6OBmAp35wpQr7nIZWpObxivQ-NZiVSCWRYYdfaJkWzoT3TvG1NfbX7SnXCs3Qz3UvwPxnwdWqFvqM58gpDF-Jv4QbhsLZ4FpORPo7ml_DteZbCbwy9PEbHKoc2JvR4mKWByKdL_lxkNjL6d6oi-3-w1GqayxcgnmtgyZc78eqAdu150vOe8VM4CQGfENEO6nxKpApwC9ZoCbHuRI1lgNRZ2Z9F3MikczcsgxnjwdMmQpZclg6RZcUVnFw
+
+
+
+
+# Deleting the dashboard + metrics server
+# Deleting the resources is very similar to creating them, but instead of using kubectl apply we'll use kubectl delete:
+# First delete the metrics server:
+
+kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.4.2/components.yaml
+
+# And then delete the dashboard:
+# After that, everything should be back as it was before you started.
+
+kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
+
+
+
+
+
