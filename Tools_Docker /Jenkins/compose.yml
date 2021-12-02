@@ -1,0 +1,13 @@
+# This yaml script pulls the latest Jenkins image from DockerHub
+
+version: "3"
+services:
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - $HOME/learning/jenkins/jenkins_home:/var/jenkins_home
+      

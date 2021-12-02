@@ -1,0 +1,9 @@
+# Once Prometheus container is up , we need to get inside the container using command docker exec -it cont_name /bin/sh 
+# Next cd to /etc/prometheus/
+# In this dir we will fn prometheus.yml file , we will edit it with vi editor and add the below statements and save it . 
+# Restart Prometheus & Jenkins and we are good to go . 
+
+- job_name: "jenkins"
+  metrics_path: /prometheus
+  static_configs:
+    - targets: ["192.168.0.112:8080"]
