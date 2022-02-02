@@ -1,0 +1,7 @@
+---
+  - name: "Test Play"
+    hosts: localhost
+
+    tasks:
+      - name: "Test Availability"
+        ping:  
