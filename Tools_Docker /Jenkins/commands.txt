@@ -15,7 +15,7 @@ sudo service docker start
 
 
 # docker pull jenkins/jenkins
-  docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins
+  docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins/jenkins
   
 # docker run -d --name prometheus -p 9090:9090 prom/prometheus
 # docker run -d --name grafana -p 3000:3000 grafana/grafana
