@@ -4,7 +4,17 @@ docker run -d -u root -v /var/jenkins/jenkins_home:/var/jenkins_home -v $(Which 
 
 
 Start Docker as service on Ec2 ::
+
+Sudo yum update 
+Sudo yum -y install docker 
+
+Sudo usermod a -G docker ec2-user
+Sudo chmod 666 /var/run/docker.sock
+
+docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
 sudo service docker start
+
+
 
 
 # docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins
