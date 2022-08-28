@@ -10,13 +10,12 @@ Sudo yum -y install docker
 
 Sudo usermod a -G docker ec2-user
 Sudo chmod 666 /var/run/docker.sock
-
-docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
 sudo service docker start
 
 
 
-
-# docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins
+# docker pull jenkins/jenkins
+  docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins
+  
 # docker run -d --name prometheus -p 9090:9090 prom/prometheus
 # docker run -d --name grafana -p 3000:3000 grafana/grafana
