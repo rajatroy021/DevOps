@@ -11,9 +11,7 @@ kubectl create namespace argocd
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml 
 
-
 kubectl get pod -n argocd           # Check pod status if running or not 
-
 
 kubectl port-forward -n argocd svc/argocd-server 8080:443   # Forward the service rqst to local port so that we accss it on our browser 
 
@@ -27,13 +25,6 @@ minikube delete --all
 
 # Reset ur cluster back :
 Select reset cluster in locker Desktop and restart the application . 
-
-
-
-
-
-
-
 
 # For MiniKube :: -- Fresh Installation 
 
