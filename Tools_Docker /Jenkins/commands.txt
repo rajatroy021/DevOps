@@ -1,10 +1,10 @@
 Start Docker as service on Ec2 ::
 
-Sudo yum update 
-Sudo yum -y install docker 
+sudo yum update 
+sudo yum -y install docker 
 
-Sudo usermod a -G docker ec2-user
-Sudo chmod 666 /var/run/docker.sock
+sudo usermod a -G docker ec2-user
+sudo chmod 666 /var/run/docker.sock
 sudo service docker start
 
 
