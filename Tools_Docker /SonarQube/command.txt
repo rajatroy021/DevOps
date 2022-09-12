@@ -7,4 +7,4 @@ sudo service docker start
 
 
 Pull Sonar:lts image and start the container ::
-docker run -d --name jenkins -p 9000:9000 sonarqube:lts
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts
