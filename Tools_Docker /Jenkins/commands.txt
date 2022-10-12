@@ -1,17 +1,24 @@
 Start Docker as service on Ec2 ::
 
-Sudo yum update 
-Sudo yum -y install docker 
+sudo yum update 
+sudo yum -y install docker 
 
-Sudo usermod a -G docker ec2-user
-Sudo chmod 666 /var/run/docker.sock
+sudo usermod a -G docker ec2-user
+sudo chmod 666 /var/run/docker.sock
 sudo service docker start
 
 
 Docker commands ::
 # docker pull jenkins/jenkins
   docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins/jenkins
+  
 
-Prometheus & Grafana ::
-# docker run -d --name prometheus -p 9090:9090 prom/prometheus
-# docker run -d --name grafana -p 3000:3000 grafana/grafana
+Auto-starting the docker-engine itself :
+systemctl list-unit-files | grep docker
+systemctl enable docker.service
+
+If container is already running and u want to keep it running unless force stopped ::
+docker update --restart unless-stopped container_id
+
+Auto Restart containers ::
+docker run -dit --restart unless-stopped httpd
