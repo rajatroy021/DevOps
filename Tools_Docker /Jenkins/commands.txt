@@ -11,3 +11,14 @@ sudo service docker start
 Docker commands ::
 # docker pull jenkins/jenkins
   docker run -d --name jenkins -p 8080:8080 -p 50000:50000 jenkins/jenkins
+  
+
+Auto-starting the docker-engine itself :
+systemctl list-unit-files | grep docker
+systemctl enable docker.service
+
+If container is already running and u want to keep it running unless force stopped ::
+docker update --restart unless-stopped container_id
+
+Auto Restart containers ::
+docker run -dit --restart unless-stopped httpd
