@@ -8,6 +8,4 @@ services:
     privileged: true
     ports:
       - "8080:8080"
-    volumes:
-      - $HOME/learning/jenkins/jenkins_home:/var/jenkins_home
       
