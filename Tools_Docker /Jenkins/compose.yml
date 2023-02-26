@@ -21,4 +21,4 @@ sudo chmod +x /usr/bin/docker-compose
 
 Once above compose installation is done , create a compose.yaml file using above code .
 Navigate to the directory where .yaml file is and run :
-docker-compose up
+docker-compose up -d
