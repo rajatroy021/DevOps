@@ -1,0 +1,64 @@
+Create a new compose file with below code 
+This is a Prod level setup
+To remove all the setup which was done using compose file , we can run this command to delete all resources at once which were created 
+docker-compose down --rmi all --volumes --remove-orphans
+
+version: '3.4'
+
+services:
+  awx:
+    image: ansible/awx:17.0.1
+    container_name: awx
+    restart: always
+    depends_on:
+      - postgresql
+      - memcached
+      - redis
+    volumes:
+      - awx_task_volume:/var/lib/awx/venv/awx_task
+      - awx_web_volume:/var/lib/awx/venv/awx_web
+      - awx_task_socket_volume:/var/run/awx/awx_task.sock
+    environment:
+      - SECRET_KEY=mysecretkey
+      - ALLOWED_HOSTS=awx.example.com
+      - PG_HOST=postgresql
+      - PG_PORT=5432
+      - PG_DATABASE=awx
+      - PG_USERNAME=awx
+      - PG_PASSWORD=awxpass
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MEMCACHED_HOST=memcached
+    ports:
+      - "80:8052"
+
+  postgresql:
+    image: postgres:11
+    container_name: awx-postgres
+    restart: always
+    volumes:
+      - awx_postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=awx
+      - POSTGRES_PASSWORD=awxpass
+      - POSTGRES_DB=awx
+
+  redis:
+    image: redis:6
+    container_name: awx-redis
+    restart: always
+    volumes:
+      - awx_redis_data:/data
+
+  memcached:
+    image: memcached:1.6
+    container_name: awx-memcached
+    restart: always
+    command: ["memcached", "-m 64"]
+
+volumes:
+  awx_postgres_data:
+  awx_redis_data:
+  awx_task_volume:
+  awx_web_volume:
+  awx_task_socket_volume:
