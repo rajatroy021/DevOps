@@ -3,22 +3,44 @@ Start Fresh Cluster - Minikube
 minikube delete --all 
 
 # Reset ur cluster back :
-Select reset cluster in locker Desktop and restart the application . 
-
-# For MiniKube :: -- Fresh Installation 
-
-https://minikube.sigs.k8s.io/docs/start/
-
-# To install the latest minikube stable release on ARM64 macOS using binary download:- Command 
-
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-arm64
-sudo install minikube-darwin-arm64 /usr/local/bin/minikube
-
-minikube start 
-
-kubectl get po -A       	# Interact with your cluster
-
-minikube dashboard - Create dashboard if needed 
 
 #Command for minikube - Cheatsheet
 https://cheatsheet.dennyzhang.com/cheatsheet-minikube-a4
+
+
+
+To Install minikube on AWS ::
+https://www.techbeatly.com/installing-a-kubernetes-cluster-using-minikube/
+
+Download kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+## Download the kubectl checksum file and Validate
+$ curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+$ echo "$(<kubectl.sha256) kubectl" | sha256sum --check
+
+## Install 
+$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# Make the kubectl binary executable.
+chmod +x ./kubectl
+# Move the binary in to your PATH.
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version --short
+
+# download and install minikube package
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+ 
+$ sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+Run with these specs :
+sudo minikube start --addons=ingress --cni=flannel --install-addons=true     --kubernetes-version=stable     --vm-driver=docker --wait=false     --cpus=4 --memory=6g --force
+
+## Check addons
+$ minikube addons list
+$ minikube addons enable metrics-server
+$ minikube dashboard
+
+Add your user to the Docker group: Add your user to the Docker group using the following command:
+sudo usermod -aG docker $USER
