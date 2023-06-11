@@ -44,3 +44,7 @@ $ minikube dashboard
 
 Add your user to the Docker group: Add your user to the Docker group using the following command:
 sudo usermod -aG docker $USER
+
+AWX Community Maintained:
+https://github.com/ansible/awx-operator
+
