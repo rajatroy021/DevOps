@@ -1,24 +1,15 @@
-# This yaml script pulls the latest Jenkins image from DockerHub
+version: '3'
 
-version: "3"
 services:
-
   jenkins:
-    restart: unless-stopped
     image: jenkins/jenkins:lts
-    privileged: true
+    container_name: jenkins
     ports:
       - "8080:8080"
+      - "50000:50000"
     volumes:
-      - $HOME/learning/jenkins/jenkins_home:/var/jenkins_home
-      
+      - /root/data/jenkins_home:/var/jenkins_home   # Mount host directory into container
+      - /var/run/docker.sock:/var/run/docker.sock
 
-Also in order to execute docker compose files :
-Install Docker Compose on ur Linux EC2
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-$(uname -s)-$(uname -m)"  -o /usr/local/bin/docker-compose
-sudo mv /usr/local/bin/docker-compose /usr/bin/docker-compose
-sudo chmod +x /usr/bin/docker-compose
-
-Once above compose installation is done , create a compose.yaml file using above code .
-Navigate to the directory where .yaml file is and run :
-docker-compose up -d
+volumes:
+  jenkins_home:
